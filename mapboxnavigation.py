@@ -7,7 +7,7 @@ rate = engine.getProperty('rate')
 engine.setProperty('rate', rate-6)
 
 # Get a Mapbox Navigation API key from https://www.mapbox.com/pricing/
-mapbox_api_key = "pk.eyJ1Ijoic2hpdmppYWduaWhvdHJpIiwiYSI6ImNsaGsyNDdlaTBuZnozZHBiMGEwYXU3cmgifQ.5N7wiq6Sr7yad254of3TVw"
+mapbox_api_key = "MAPBOX API KEY"
 
 # Create a Mapbox Navigation object
 navigation = mapbox.Directions(mapbox_api_key)
