@@ -1,0 +1,42 @@
+import speech_recognition as sr
+import mapbox
+
+# Get a Mapbox Navigation API key from https://www.mapbox.com/pricing/
+mapbox_api_key = "pk.eyJ1Ijoic2hpdmppYWduaWhvdHJpIiwiYSI6ImNsaGsyNDdlaTBuZnozZHBiMGEwYXU3cmgifQ.5N7wiq6Sr7yad254of3TVw"
+
+# Create a Mapbox Navigation object
+navigation = mapbox.Directions(api_key=mapbox_api_key)
+
+# Create a speech recognition object
+recognizer = sr.Recognizer()
+
+# Get the user's starting location
+print("Where are you starting from?")
+with sr.Microphone() as source:
+    audio = recognizer.listen(source)
+
+# Recognize the user's starting location
+location = recognizer.recognize_google(audio)
+
+# Get the user's destination
+print("Where would you like to go?")
+with sr.Microphone() as source:
+    audio = recognizer.listen(source)
+
+# Recognize the user's destination
+destination = recognizer.recognize_google(audio)
+
+# Get directions from the user's starting location to their destination
+response = navigation.directions([location, destination])
+
+# Extract the route from the response
+route = response.json()['routes'][0]
+
+# Extract the steps from the route
+steps = route['legs'][0]['steps']
+
+# Print and speak the directions to the user
+for step in steps:
+    print("Turn " + step["maneuver"]["instruction"] + " on " + step["maneuver"]["location"]["street"])
+    # Speak the directions to the user using text-to-speech functionality
+
